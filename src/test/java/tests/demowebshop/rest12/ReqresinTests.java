@@ -15,73 +15,74 @@ public class ReqresinTests {
     }
 
     @Test
-    void createTest() {
-        String body = "{\"name\": \"morpheus\",\"job\": \"leader\"}";
+    void listUsers() {
+
         given()
-                .log().uri()
-                .log().body()
+                .contentType(JSON)
+                .when()
+                .get("https://reqres.in/api/users?page=2")
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("page", is(2))
+                .body("per_page", is(6))
+                .body("total", is(12))
+                .body("total_pages", is(2));
+    }
+
+    @Test
+    void createUser() {
+        String body = "{\"name\": \"morpheus\",     \"job\": \"leader\" }";
+        given()
                 .body(body)
                 .contentType(JSON)
                 .when()
-                .post("/users")
+                .post("https://reqres.in/api/users")
                 .then()
-                .log().status()
-                .log().body()
+                .log().all()
                 .statusCode(201)
                 .body("name", is("morpheus"))
                 .body("job", is("leader"));
     }
 
     @Test
-    void deleteTest() {
-        delete("/users/2")
+    void updateUser() {
+        String body = "{\"name\": \"morpheus\",\"job\": \"zion resident\"}";
+        given()
+                .body(body)
+                .contentType(JSON)
+                .when()
+                .put("https://reqres.in/api/users/2")
                 .then()
+                .log().all()
+                .statusCode(200)
+                .body("name",is("morpheus"))
+                .body("job", is("zion resident"));
+    }
+
+    @Test
+    void deleteUser() {
+        given()
+                .when()
+                .delete("https://reqres.in/api/users/2")
+                .then()
+                .log().all()
                 .statusCode(204);
     }
 
     @Test
-    void registerUnsuccessfulTest() {
-        String body = "{\"email\": \"my@email.com\"}";
+    void registerSuccesfull() {
+        String body = "{\"email\": \"eve.holt@reqres.in\", \"password\": \"pistol\" }";
         given()
-                .log().uri()
-                .log().body()
                 .body(body)
                 .contentType(JSON)
                 .when()
-                .post("/login")
+                .post("https://reqres.in/api/register")
                 .then()
-                .log().status()
-                .log().body()
-                .statusCode(400)
-                .body("error", is("Missing password"));
-    }
-
-    @Test
-    void loginTest() {
-        String body = "{ \"email\": \"eve.holt@reqres.in\", " +
-                "\"password\": \"cityslicka\" }";
-        given()
-                .log().uri()
-                .log().body()
-                .body(body)
-                .contentType(JSON)
-                .when()
-                .post("/login")
-                .then()
-                .log().status()
-                .log().body()
+                .log().all()
                 .statusCode(200)
+                .body("id",is(4))
                 .body("token", is("QpwL5tke4Pnpja7X4"));
     }
 
-    @Test
-    void listUsersTest() {
-        get("/users")
-                .then()
-                .log().body()
-                .body("page",is(1))
-                .body("per_page", is(6))
-                .body("total",is(12))
-                .body("total_pages",is(2));
-    }
 }
