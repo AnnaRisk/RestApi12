@@ -9,11 +9,6 @@ import static org.hamcrest.Matchers.is;
 
 public class ReqresinTests {
 
-    @BeforeAll
-    static void testBase() {
-        RestAssured.baseURI = "https://reqres.in/api";
-    }
-
     @Test
     void listUsers() {
 
