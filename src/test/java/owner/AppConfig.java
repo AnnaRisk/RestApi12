@@ -5,8 +5,9 @@ import org.aeonbits.owner.Config;
 @Config.LoadPolicy(Config.LoadType.MERGE)
 @Config.Sources({
         "system:properties",
-        "classpath:config/demowebshop/app.properties"
+        "classpath:app.properties"
 })
+
 public interface AppConfig extends Config {
 
     String webUrl();
@@ -26,6 +27,6 @@ public interface AppConfig extends Config {
 
     String userPassword();
 
-    String authCookie();
+   //String authCookie();
 
 }

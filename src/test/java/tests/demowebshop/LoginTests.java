@@ -35,9 +35,9 @@ public class LoginTests extends TestBase {
 
     @Test
     @Tag("demowebshop")
-    @Disabled("Example test code for further test development")
+ //   @Disabled("Example test code for further test development")
     @DisplayName("Successful authorization to some demowebshop (UI)")
-    void loginTest() {
+    void loginTest1() {
         step("Open login page", () ->
                 open("/login"));
 
@@ -53,7 +53,7 @@ public class LoginTests extends TestBase {
 
     @Test
     @Tag("demowebshop")
-    @Disabled("Example test code for further test development")
+ //   @Disabled("Example test code for further test development")
     @DisplayName("Successful authorization to some demowebshop (API + UI)")
     void loginWithCookieTest() {
         step("Get cookie by api and set it to browser", () -> {
