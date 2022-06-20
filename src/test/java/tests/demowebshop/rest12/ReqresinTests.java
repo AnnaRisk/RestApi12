@@ -27,7 +27,7 @@ public class ReqresinTests {
 
     @Test
     void createUser() {
-        String body = "{\"name\": \"morpheus\",     \"job\": \"leader\" }";
+        String body = "{\"name\": \"morpheus\", \"job\": \"leader\" }";
         given()
                 .body(body)
                 .contentType(JSON)

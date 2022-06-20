@@ -51,10 +51,13 @@ public class TestBase {
 
     @AfterEach
     void afterEach() {
+
         AllureAttachments.addScreenshotAs("Screen");
         AllureAttachments.addPageSource();
         AllureAttachments.addBrowserConsoleLogs();
         AllureAttachments.addVideo(sessionId);
         closeWebDriver();
     }
+
+
 }
